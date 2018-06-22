@@ -1,0 +1,22 @@
+// media query
+
+@mixin set-media-r1 {
+    @media (-webkit-device-pixel-ratio: 1.5) {
+        @content;
+    }
+}
+
+@mixin set-media-r2 {
+    @media (-webkit-min-device-pixel-ratio: 1.5),
+    (min-device-pixel-ratio: 1.5),
+    (min-resolution: 144dpi),
+    (min-resolution: 1.5dppx) {
+        @content;
+    }
+}
+
+@mixin set-media-r3 {
+    @media (-webkit-device-pixel-ratio: 3) {
+        @content;
+    }
+}

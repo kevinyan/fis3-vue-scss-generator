@@ -1,0 +1,202 @@
+// function && mixins
+
+//**
+//* rem视觉样式
+//* list-separator polyfill by Hugo Giraudel (https://sass-compatibility.github.io/#list_separator_function)
+//**
+@function rem-separator($list) {
+    @if function-exists('list-separator') == true {
+        @return list-separator($list);
+    }
+    $test-list: ();
+    @each $item in $list {
+        $test-list: append($test-list, $item, space);
+    }
+    @return if ($test-list == $list, space, comma);
+}
+
+@mixin rem-baseline($zoom: 100%) {
+    font-size: $zoom / 16px * $rem-baseline;
+}
+
+@function rem-convert($to, $values...) {
+    $result: ();
+    $separator: rem-separator($values);
+    @each $value in $values {
+        @if type-of($value) == 'number' and unit($value) == '' {
+            $value: $value * 1px;
+        }
+        @if type-of($value) == 'number' and unit($value) == 'px' and $to == 'rem' and $value < 0 {
+            $result: append($result, $value / ($rem-baseline / 1rem) / $default-dpi, $separator);
+        }
+        @else if type-of($value) == 'number' and unit($value) == 'px' and $to == 'rem' and $value <= $default-dpi {
+            $result: append($result, $value / $default-dpi, $separator);
+        }
+        @else if type-of($value) == 'number' and unit($value) == 'rem' and $to == "px" {
+            $result: append($result, $value / 1rem * $rem-baseline * $default-dpi, $separator);
+        }
+        @else if type-of($value) == 'number' and unit($value) == 'px' and $to == 'rem' {
+            $result: append($result, $value / ($rem-baseline / 1rem) / $default-dpi, $separator);
+        }
+        @else if type-of($value) == 'list' {
+            $result: append($result, rem-convert($to, $value...), $separator);
+        }
+        @else {
+            $result: append($result, $value, $separator);
+        }
+    }
+    @return $result;
+}
+
+@function rem($values...) {
+    @if $rem-px-only {
+        @return rem-convert(px, $values...);
+    }
+    @else {
+        @return rem-convert(rem, $values...);
+    }
+}
+
+//**
+//* 1px边框------------------------------------------START
+//* 上边框@include tb(#fff);
+//* 右边框@include rb(#fff);
+//* 下边框@include bb(#fff);
+//* 左边框@include lb(#fff);
+//* 全边框@include ab(#fff, 10px);
+//**
+@mixin tb($color, $size:1px) {
+    @extend %tb;
+
+    &:before {
+        height: $size;
+        background-color: $color;
+    }
+}
+
+@mixin rb($color, $size:1px) {
+    @extend %rb;
+
+    &:after {
+        width: $size;
+        background-color: $color;
+    }
+}
+
+@mixin bb($color, $size:1px) {
+    @extend %bb;
+
+    &:after {
+        height: $size;
+        background-color: $color;
+    }
+}
+
+@mixin lb($color, $size:1px) {
+    @extend %lb;
+
+    &:before {
+        width: $size;
+        background-color: $color;
+    }
+}
+
+@mixin ab($color, $size:1px, $radius: 0px) {
+    @extend %ab;
+
+    &:before {
+        border: $size solid $color;
+        @if $radius != 0px {
+            border-radius: $radius;
+        }
+    }
+}
+
+@mixin hairline($direction: h, $color: #e6e6e6) {
+    @if $direction == 'h' {
+        @include bb($color);
+    }
+    @else if $direction == 'v' {
+        @include rb($color);
+    }
+}
+//**
+//* 1px边框------------------------------------------END
+//**
+
+// 扫光loading
+@mixin ani-flash {
+    .ani-flash {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+
+        .logo {
+            overflow: hidden;
+            margin: 0 auto;
+            width: rem(441px);
+            height: rem(142px);
+            background: url(../images/flash-logo.png) 50% 50% no-repeat;
+            background-size: 100%;
+        }
+        .flash {
+            height: 100%;
+            width: 100%;
+            background: url(../images/flash-light.png) no-repeat;
+            background-size: auto 100%;
+            animation: flash  1.3s infinite;
+        }
+    }
+
+    @keyframes flash {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+}
+
+// 加载错误
+@mixin error-view {
+    .error {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        &-content {
+            min-height: rem(600px);
+        }
+
+        &-logo {
+            height: rem(360px);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-image: url(../images/error-default.png);
+            background-size: auto 100%;
+        }
+
+        &-text {
+            padding-top: rem(48px);
+            font-size: rem(48px);
+            text-align: center;
+            color: #666;
+        }
+
+        &-button {
+            margin: 0 auto;
+            margin-top: rem(48px);
+            width: rem(336px);
+            height: rem(96px);
+            border: 1px solid #333;
+            font-size: rem(48px);
+            line-height: rem(96px);
+            text-align: center;
+            color: #666;
+        }
+    }
+}

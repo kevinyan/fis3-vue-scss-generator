@@ -1,0 +1,130 @@
+// placeholders
+
+//**
+//* 1px边框------------------------------------------START
+//*
+//* 用法1：
+//* 上边框@extend %tb;
+//* 右边框@extend %rb;
+//* 下边框@extend %bb;
+//* 左边框@extend %lb;
+//* 全边框@extend %ab;
+//* 然后自定义相应的伪元素:after或:before
+//**
+%o1 {
+    transform-origin: 0 0;
+}
+
+%o2 {
+    transform-origin: 0 100%;
+}
+
+%o3 {
+    transform-origin: 100% 0;
+}
+
+%scale {
+    @include set-media-r1 {
+        width: 150%;
+        height: 150%;
+        transform: scale(0.66667);
+    }
+
+    @include set-media-r2 {
+        width: 200%;
+        height: 200%;
+        transform: scale(0.5);
+    }
+
+    @include set-media-r3 {
+        width: 300%;
+        height: 300%;
+        transform: scale(0.33333);
+    }
+}
+
+%tb {
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        height: 1px;
+        pointer-events: none;
+        @extend %o1;
+        @extend %scale;
+    }
+}
+
+%bb {
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        pointer-events: none;
+        @extend %o2;
+        @extend %scale;
+    }
+}
+
+%lb {
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        pointer-events: none;
+        @extend %o1;
+        @extend %scale;
+    }
+}
+
+%rb {
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        pointer-events: none;
+        @extend %o3;
+        @extend %scale;
+    }
+}
+
+%ab {
+    position: relative;
+    overflow: visible;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        @extend %o1;
+        @extend %scale;
+    }
+}
+//**
+//* 1px边框------------------------------------------END
+//**
+
+// 水平垂直居中
+%centerfy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

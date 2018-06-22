@@ -1,0 +1,9 @@
+{
+	"errno": 0,
+	"errmsg": "OK",
+	"request_id": "0104000188",
+	"timestamp": 1528858904,
+	"data": {
+		"vitality_remain": 9
+	}
+}

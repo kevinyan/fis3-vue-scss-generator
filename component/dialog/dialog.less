@@ -1,0 +1,102 @@
+.dialog {
+    display: none;
+    &.show {
+        display: block
+    }
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    color: #000;
+    z-index: 9;
+    .overlay {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+        background-color: #000;
+        opacity: .3;
+    }
+    .dialogcontent {
+        position: relative;
+        overflow: hidden;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        left: 0;
+        background-color: #FFF;
+        border-radius: 3px;
+        z-index: 11;
+        margin: 0 1.5rem;
+    }
+
+
+
+    .title,
+    .btn,
+    .content {
+        position: relative;
+    }
+
+    .btn a,
+    .title {
+        text-decoration: none;
+        text-align: center;
+        height: 4.8rem;
+        line-height: 4.8rem;
+        color: inherit;
+    }
+
+    .content {
+        line-height: 2.5rem;
+        padding: 3.5rem 0;
+        text-align: center;
+        color: #333;
+        font-size: 1.4rem;
+    }
+
+    .btn {
+        &.one {
+            a {
+                display: block;
+                height: 100%;
+                width: 100%;
+                height: 5rem;
+                line-height: 5rem;
+                text-align: center;
+            }
+        }
+        &.two {
+            a {
+                font-size: 1.6rem;
+                color: #000;
+                float: left;
+                width: 50%;
+                height: 4.8rem;
+                line-height: 4.8rem;
+                &:first-of-type {
+                    border-right: 1px solid #eee;
+                }
+                &:active {
+                    background-color: #f5f5f5;
+                }
+            }
+        }
+        &.three {
+            a {
+                text-align: center;
+                display: block;
+                height: 5rem;
+                line-height: 5rem;
+                border-bottom: 1px solid #eee;
+                &:last-of-type {
+                    border-bottom: none
+                }
+            }
+        }
+    }
+}

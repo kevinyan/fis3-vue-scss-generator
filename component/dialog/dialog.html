@@ -1,0 +1,10 @@
+<div class="dialog">
+    <div class="overlay" v-on:click="close" @touchmove.prevent></div>
+    <div class="dialogcontent" @touchmove.prevent>
+        <div class="title border-bottom" v-if="diaTitle">{{diaTitle}}</div>
+        <div class="content" v-if="diaContent">{{diaContent}}</div>
+        <div class="btn"  v-if="diaFooter.length >0" v-bind:class="{ one: diaFooter.length == 1, 'two': diaFooter.length == 2, 'three': diaFooter.length == 3}">
+            <a href="javascript:void(0)" v-for="item in diaFooter" v-on:click="doDia(item.type)">{{item.tip}}</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+@-webkit-keyframes new-loading-anim {
+    0% {
+        left: -80px
+    }
+    100% {
+        left: 170px
+    }
+}
+
+.page-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%);
+    -webkit-transform: translate(-50%, -50%);
+    border-radius: 5px;
+    padding: 20px;
+    width: 140px;
+    overflow: hidden;
+    box-sizing: content-box;
+    z-index: 888;
+}
+
+.page-loading-text {
+    color: #888;
+    font: 400 16px/30px normal
+}
+
+.page-loading-logo-wrap {
+    // height: 60px;
+    // width: 150px;
+    // display: inline-block;
+    // position: relative
+}
+
+.page-loading-logo {
+    height: 64px;
+    width: 64px;
+    background: url(//gss0.bdstatic.com/5foIcy0a2gI2n2jgoY3K/n/nvn/assets/loading_0e6e0f4.gif) no-repeat center;
+    background-size: 50%;
+    opacity: 1;
+    margin: 0 auto;
+}
+
+.page-loading-anim {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    left: -80px;
+    background-size: cover;
+    background-color: #fff;
+    opacity: .05;
+    transform: skew(40deg);
+    -webkit-transform: skew(40deg);
+    -webkit-animation: new-loading-anim 1s linear infinite;
+}
